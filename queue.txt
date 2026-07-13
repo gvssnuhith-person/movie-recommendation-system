@@ -1,0 +1,5 @@
+wgat is queue ds
+ what is principle on queue 
+what are the operations on queue ds , time complexity 
+realtime apps on queue with examples 
+give me some samples coding problems on queues .
