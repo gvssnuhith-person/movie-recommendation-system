@@ -6,15 +6,20 @@ CineMatch is a modern, full-stack Movie Recommendation System. It uses Machine L
 
 ### 2. Technology Stack
 *   **Frontend**: React, Vite, TailwindCSS, Framer Motion (Animations), Three.js / React Three Fiber (3D Elements).
-*   **Backend**: Python, FastAPI, Uvicorn, Pandas, Scikit-learn (Machine Learning).
-*   **Database**: SQLite (`movies.db`).
+*   **Backend Framework**: Python, FastAPI, Uvicorn.
+*   **Machine Learning (Backend)**: Pandas, Scikit-learn (TF-IDF Vectorizer & Cosine Similarity).
+*   **Database (Backend)**: SQLite (`movies.db`).
 *   **APIs**: OMDB API (Primary movie details), Wikipedia REST API (Fallback data).
 *   **Deployment**: Vercel (Frontend), Render (Backend).
 
 ### 3. Backend Architecture (Python / FastAPI)
-*   `app.py`: The core server file. It loads the SQLite database on startup, vectorizes the genres using `TfidfVectorizer`, and computes a Cosine Similarity matrix. It exposes endpoints `/movies` for the frontend dropdown and `/recommend` to fetch the top 6 similar movies.
-*   `requirements.txt`: Python dependencies including fastapi, uvicorn, pandas, and scikit-learn.
-*   `render.yaml`: CI/CD configuration to automatically deploy the FastAPI server to Render.com.
+The backend serves as the "brain" of the application, handling data processing, machine learning logic, and serving endpoints to the frontend.
+*   `app.py`: The core server file. It loads the SQLite database on startup, vectorizes the movie genres using `scikit-learn`'s `TfidfVectorizer`, and computes a Cosine Similarity matrix to mathematically determine how related movies are to one another.
+*   **Endpoints**: 
+    *   `/movies` (GET): Returns a list of all movies, with optional language filtering, used for the frontend search autocomplete.
+    *   `/recommend` (GET): Accepts a movie title, finds its index in the similarity matrix, and returns the top 6 highest-scoring recommendations.
+*   `requirements.txt`: Python dependencies including `fastapi`, `uvicorn`, `pandas`, `scikit-learn`, `numpy`, and `scipy`.
+*   `render.yaml`: CI/CD configuration to automatically deploy the FastAPI server to Render.com using a Web Service environment.
 
 ### 4. Frontend Architecture (React / Vite)
 *   `frontend/src/App.jsx`: The main application view. Handles user search input, communicates with the Python backend, filters by language, and triggers entrance animations for movie cards using Framer Motion.
@@ -23,8 +28,7 @@ CineMatch is a modern, full-stack Movie Recommendation System. It uses Machine L
 
 ### 5. Data Pipeline & Database
 *   `fetch_all_movies.py`: An automated data pipeline script that pulls the top movies from the past 15 years from TMDB (via proxy to bypass ISP blocks) and writes them to the SQLite database.
-*   `generate_movies.py` & `setup_db.py`: Secondary scripts used to curate a high-quality list of top-tier Telugu and English movies to ensure highly accurate recommendations.
-*   `movies.db`: The resulting local SQLite database powering the system.
+*   `movies.db`: The resulting local SQLite database powering the system containing over 100 curated blockbuster movies across English and Telugu cinema.
 
 ### 6. Deployment URLs
 *   **Live Frontend URL**: https://movierecomended.vercel.app
