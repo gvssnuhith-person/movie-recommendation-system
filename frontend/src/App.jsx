@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Film, Star, ArrowRight, Globe } from 'lucide-react';
+import { Search, Film, Star, ArrowRight, Globe, Linkedin, Share2 } from 'lucide-react';
 import Scene from './components/Scene';
 import MovieModal from './components/MovieModal';
 
@@ -75,10 +75,39 @@ export default function App() {
     setIsModalOpen(true);
   };
 
+  // LinkedIn Share functionality
+  const shareToLinkedIn = () => {
+    const url = "https://movierecomended.vercel.app";
+    const title = "Check out CineMatch, the AI-powered Movie Recommendation System I built!";
+    const summary = "I built a full-stack Machine Learning web app using React, FastAPI, and Scikit-learn. It uses TF-IDF and Cosine Similarity to recommend movies based on thematic genres. Try it out!";
+
+    // LinkedIn Share URL format
+    const linkedinUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(title + '\n\n' + summary + '\n\n' + url)}`;
+    window.open(linkedinUrl, '_blank');
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden font-sans text-white">
       {/* 3D Background */}
       <Scene />
+
+      {/* Floating LinkedIn Share Button */}
+      <motion.button
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1, type: "spring" }}
+        onClick={shareToLinkedIn}
+        className="fixed bottom-6 right-6 z-40 bg-[#0a66c2] hover:bg-[#004182] text-white p-4 rounded-full shadow-[0_0_20px_rgba(10,102,194,0.5)] transition-all transform hover:scale-110 flex items-center justify-center group"
+        title="Share this project on LinkedIn"
+      >
+        <Share2 className="w-6 h-6 absolute opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Linkedin className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
+
+        {/* Tooltip hint */}
+        <span className="absolute right-full mr-4 bg-gray-900 text-sm py-1 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-gray-700 pointer-events-none">
+          Share Project on LinkedIn!
+        </span>
+      </motion.button>
 
       <main className="relative z-10 flex flex-col items-center min-h-screen p-6 pt-16">
 
