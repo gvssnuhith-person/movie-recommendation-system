@@ -7,7 +7,7 @@ CineMatch is a modern, full-stack Movie Recommendation System designed to help u
 Instead of relying on basic keyword searches, CineMatch uses Machine Learning (TF-IDF and Cosine Similarity) to analyze the core thematic DNA (genres) of over 100 curated, top-tier movies. When a user inputs a film they love, the math-driven backend instantaneously returns 6 highly-correlated recommendations. It features a highly interactive 3D frontend, dynamic search, multi-language filtering (English & Telugu), and automatic fallback data retrieval (IMDB via OMDB API & Wikipedia API) for rich movie details.
 
 ### 2. Technology Stack & Required Files
-Everything required to run this project is contained within the root folder (`D:\Movie-Recommendation-System`).
+The project is cleanly divided into two separate directories: `frontend` and `backend`.
 
 **Frontend** (Located in `/frontend` folder):
 *   `package.json`: Node.js dependencies (React, Vite, TailwindCSS, Framer Motion, Three.js).
@@ -15,12 +15,14 @@ Everything required to run this project is contained within the root folder (`D:
 *   `src/components/Scene.jsx`: 3D interactive background.
 *   `src/components/MovieModal.jsx`: Cinematic popup for IMDB data.
 
-**Backend** (Located in root folder):
+**Backend** (Located in `/backend` folder):
 *   `app.py`: The core FastAPI Python server logic.
 *   `requirements.txt`: Python dependencies (`fastapi`, `uvicorn`, `pandas`, `scikit-learn`, `numpy`, `scipy`).
 *   `movies.db`: The SQLite Database containing all movie titles and genres.
-*   `render.yaml`: Configuration for deploying the backend to the cloud.
 *   `generate_movies.py`: Script used to inject top-tier Telugu and English movies into `movies.db`.
+
+**Deployment Config**:
+*   `render.yaml` (Root folder): Configuration telling Render to look in the `/backend` folder to deploy the API.
 
 ### 3. How Recommendations Work (The Algorithm)
 The recommendation engine does not rely on hard-coded rules. Instead, it uses Natural Language Processing (NLP) and vector mathematics to find similarities:
